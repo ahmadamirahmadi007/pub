@@ -1,12 +1,3 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: cloudstack-secret
-  namespace: kube-system
-type: Opaque
-data:
-  cloud-config: |
-    W0dsb2JhbF0KYXBpLXVybCA9IGh0dHA6Ly8xOTMuMjQ2LjIwMC4xMjQ6ODA4MC9jbGllbnQvYXBpCmFwaS1rZXkgPSBIUHR5cEdOM2hta2JGd085NHBBNVFyVGRwMmx0bFNKdmxXNlpKTlRXNmh4cTFDcVN5ZldIZ0MzWUdlZS1KZXhmbE51TldoSlphTHBLS0Nyek4tUUhQZwpzZWNyZXQta2V5ID0gcFlMbjRoZEpQeEwwdXhwY0J3RW5iSm1SMTRiQm1UOGFQMEVicnpIWWtyanBjMDhHaTVJWTBzSzVpVTJCN1VwcFFHN3Q1Z3pxbTFlTUNLVmJpZUNVUEEK
 ---
 apiVersion: v1
 kind: ServiceAccount
