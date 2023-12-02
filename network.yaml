@@ -182,7 +182,7 @@ items:
                     fieldRef:
                       apiVersion: v1
                       fieldPath: spec.nodeName
-              image: 'registry.virakcloud.com/weave-npc:latest'
+              image: 'registry.virakcloud.com/weaveworks/weave-npc:latest'
               imagePullPolicy: Always
 #npc-args
               resources:
