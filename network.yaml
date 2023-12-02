@@ -120,7 +120,7 @@ items:
         spec:
           initContainers:
             - name: weave-init
-              image: 'weaveworks/weave-kube:latest'
+              image: 'registry.virakcloud.com/weaveworks/weave-kube:latest'
               imagePullPolicy: Always
               command:
                 - /home/weave/init.sh
