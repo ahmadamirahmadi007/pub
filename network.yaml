@@ -144,8 +144,6 @@ items:
               command:
                 - /home/weave/launch.sh
               env:
-                - name: CHECKPOINT_DISABLE
-                  value: "true"
                 - name: INIT_CONTAINER
                   value: "true"
                 - name: HOSTNAME
@@ -184,7 +182,7 @@ items:
                     fieldRef:
                       apiVersion: v1
                       fieldPath: spec.nodeName
-              image: 'registry.virakcloud.com/weaveworks/weave-npc:latest'
+              image: 'registry.virakcloud.com/weave-npc:latest'
               imagePullPolicy: Always
 #npc-args
               resources:
