@@ -65,7 +65,7 @@ spec:
       containers:
       - args:
         - --configfile=/config/traefik.toml
-        image: traefik:1.7.12
+        image: 'registry.virakcloud.com/library/traefik:1.7.12'
         imagePullPolicy: IfNotPresent
         name: traefik-ingress
         ports:
