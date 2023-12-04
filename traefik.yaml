@@ -52,6 +52,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: traefik-ingress-controller
+  namespace: kube-system
 spec:
   selector:
     matchLabels:
@@ -65,7 +66,7 @@ spec:
       containers:
       - args:
         - --configfile=/config/traefik.toml
-        image: 'registry.virakcloud.com/traefik:1.7.12'
+        image: traefik:1.7.12
         imagePullPolicy: IfNotPresent
         name: traefik-ingress
         ports:
