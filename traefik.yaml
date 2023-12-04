@@ -52,7 +52,6 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: traefik-ingress-controller
-  namespace: kube-system
 spec:
   selector:
     matchLabels:
