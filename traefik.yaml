@@ -66,7 +66,7 @@ spec:
       - args:
         - --configfile=/config/traefik.toml
         image: 'registry.virakcloud.com/traefik:1.7.12'
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: traefik-ingress
         ports:
         - containerPort: 80
