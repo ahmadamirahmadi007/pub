@@ -1,0 +1,74 @@
+cat /usr/local/bin/configure-containerd.sh
+#!/bin/bash
+
+# Function to perform additional actions
+perform_additional_actions() {
+  # Path to the configuration file
+file_path="/etc/containerd/config.toml"
+sleep 30
+# Check if the file already contains the mirrors
+if grep -q 'registry.mirrors."docker.io"' "$file_path"; then
+  echo "Registry mirrors already configured. Skipping changes."
+else
+  # Lines to add with correct indentation
+  new_lines='        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
+          endpoint = ["https://registry.vaheed.net:2053"]
+        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."gcr.io"]
+          endpoint = ["https://registry.vaheed.net:2083"]
+        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."ghcr.io"]
+          endpoint = ["https://registry.vaheed.net:2087"]
+        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."k8s.gcr.io"]
+          endpoint = ["https://registry.vaheed.net:2096"]
+        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."quay.io"]
+          endpoint = ["https://registry.vaheed.net:8443"]'
+
+  # Escape newlines for sed
+  escaped_new_lines=$(printf '%s\n' "$new_lines" | sed 's/[\/&]/\\&/g; s/$/\\/')
+  escaped_new_lines="${escaped_new_lines%?}"  # Remove the last backslash added
+
+  # Use sed to find the specified line and add new lines after it
+  sed -i "/^[ ]*\[plugins\.\"io\.containerd\.grpc\.v1\.cri\"\.registry\.mirrors\]/a\\
+$escaped_new_lines" "$file_path"
+
+  echo "Registry mirrors configured."
+fi
+
+# Restart the containerd service
+systemctl restart containerd
+}
+
+# Timeout in seconds (5 minutes)
+timeout=360
+interval=10
+elapsed=0
+
+# Loop to check the status of kubelet.service every 10 seconds until timeout
+while [ $elapsed -lt $timeout ]; do
+  if systemctl is-active kubelet.service >/dev/null 2>&1; then
+    perform_additional_actions
+    break  # Exit the loop after the action is performed
+  else
+    echo "Waiting for kubelet.service to become active... ($elapsed seconds elapsed)"
+  fi
+  sleep $interval
+  elapsed=$((elapsed + interval))
+done
+
+# Check if the loop exited due to timeout
+if [ $elapsed -ge $timeout ]; then
+  echo "Timeout reached. kubelet.service did not become active within 5 minutes."
+fi
+
+--------------------------------------
+cat /etc/systemd/system/configure-containerd.service
+[Unit]
+Description=Configure containerd registry mirrors
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/configure-containerd.sh start
+TimeoutStartSec=360
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
