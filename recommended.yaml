@@ -121,15 +121,6 @@ spec:
       priorityClassName: system-cluster-critical
       serviceAccountName: cloudstack-csi-controller
       affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: "app.kubernetes.io/name"
-                operator: In
-                values:
-                - cloudstack-csi-controller
-            topologyKey: "kubernetes.io/hostname"
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
@@ -156,7 +147,7 @@ spec:
 
       containers:
         - name: cloudstack-csi-controller
-          image: cloudstack-csi-driver
+          image: ghcr.io/leaseweb/cloudstack-csi-driver:0.6.1
           imagePullPolicy: Always
           args:
             - "controller"
@@ -334,7 +325,7 @@ spec:
 
       containers:
         - name: cloudstack-csi-node
-          image: cloudstack-csi-driver
+          image: ghcr.io/leaseweb/cloudstack-csi-driver:0.6.1
           imagePullPolicy: IfNotPresent
           args:
             - "node"
