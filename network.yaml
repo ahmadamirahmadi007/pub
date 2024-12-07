@@ -121,7 +121,7 @@ items:
           initContainers:
             - name: weave-init
               image: 'registry.virakcloud.com/weaveworks/weave-kube:latest'
-              imagePullPolicy: Always
+              imagePullPolicy: IfNotPresent
               command:
                 - /home/weave/init.sh
               env:
@@ -152,7 +152,7 @@ items:
                       apiVersion: v1
                       fieldPath: spec.nodeName
               image: 'registry.virakcloud.com/weaveworks/weave-kube:latest'
-              imagePullPolicy: Always
+              imagePullPolicy: IfNotPresent
               readinessProbe:
                 httpGet:
                   host: 127.0.0.1
@@ -182,8 +182,8 @@ items:
                     fieldRef:
                       apiVersion: v1
                       fieldPath: spec.nodeName
-              image: 'registry.virakcloud.com/weaveworks/weave-kube:latest'
-              imagePullPolicy: Always
+              image: 'registry.virakcloud.com/weaveworks/weave-npc:latest'
+              imagePullPolicy: IfNotPresent
 #npc-args
               resources:
                 requests:
@@ -329,7 +329,7 @@ spec:
       containers:
         - name: cloudstack-csi-controller
           image: quay.io/apalia/cloudstack-csi-driver:0.0.2
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           args:
             - "-endpoint=$(CSI_ENDPOINT)"
             - "-cloudstackconfig=/etc/cloudstack-csi-driver/cloud-config"
@@ -405,7 +405,7 @@ spec:
       containers:
         - name: cloudstack-csi-node
           image: quay.io/apalia/cloudstack-csi-driver:0.0.2
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           args:
             - "-endpoint=$(CSI_ENDPOINT)"
             - "-cloudstackconfig=/etc/cloudstack-csi-driver/cloud-config"
