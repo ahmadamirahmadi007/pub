@@ -147,7 +147,7 @@ spec:
 
       containers:
         - name: cloudstack-csi-controller
-          image: ghcr.io/leaseweb/cloudstack-csi-driver:0.6.1
+          image: ghcr.io/leaseweb/cloudstack-csi-driver:0.8.1
           imagePullPolicy: Always
           args:
             - "controller"
