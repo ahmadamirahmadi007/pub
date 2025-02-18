@@ -325,7 +325,7 @@ spec:
 
       containers:
         - name: cloudstack-csi-node
-          image: ghcr.io/leaseweb/cloudstack-csi-driver:0.6.1
+          image: ghcr.io/leaseweb/cloudstack-csi-driver:0.8.1
           imagePullPolicy: IfNotPresent
           args:
             - "node"
