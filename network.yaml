@@ -491,4 +491,4 @@ reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: false
 parameters:
-  csi.cloudstack.apache.org/disk-offering-id: a822917a-6ecd-4873-a5d4-c183fbec8349
+  csi.cloudstack.apache.org/disk-offering-id: af5ca48e-1a8b-4ba8-ad5a-da15da047237
